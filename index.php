@@ -102,7 +102,6 @@ for (dropdown in dropdowns){
     };
 };
 
-//test
 </script>
 
 <script type="text/javascript" src="src/cfpb_script.js"></script>
