@@ -21,6 +21,14 @@ table {
 </head>
 
 <body>
+<p><strong>CFPB_data_downloader</strong></p>
+
+<div id="intro_graf">
+<p>This is a very in progress tool for downloading complaint trend data from the Consumer Financial Protection Bureau (CFPB). The site performs a basic request using the CFPB's API, and then makes that data available as a table and CSV for download.</p>
+<p>See the code on <a href="https://github.com/gweissman86/cfpb_data_downloader">Github</a>.</p>
+</div>
+
+<p><strong>Set trend options:</strong></p>
 
 <form>
   <label for="trend_interval">Trend interval:</label>
@@ -37,8 +45,8 @@ table {
   
   <input type="submit" value="Submit">
 </form> 
-<br><br>
-<a id="reset" href="">Reset</a>
+<br>
+<a id="reset" href="">Reset page</a>
 
 <br><br>
 <strong>Results</strong>
