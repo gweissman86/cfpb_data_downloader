@@ -24,7 +24,7 @@ table {
 <p><strong>CFPB_data_downloader</strong></p>
 
 <div id="intro_graf">
-<p>This is a very in progress tool for downloading complaint trend data from the Consumer Financial Protection Bureau (CFPB). The site performs a basic request using the CFPB's API, and then makes that data available as a table and CSV for download.</p>
+<p>This is a very in progress tool for downloading complaint trend data from the Consumer Financial Protection Bureau (CFPB). The site performs a basic request using the <a href="https://cfpb.github.io/api/ccdb/index.html">CFPB's API</a>, and then makes that data available as a table and CSV for download.</p>
 <p>See the code on <a href="https://github.com/gweissman86/cfpb_data_downloader">Github</a>.</p>
 </div>
 
@@ -36,8 +36,13 @@ table {
   </select>  <br><br>
   
   <label for="lens">Lens:</label>
-  <select id="lens" name="lens">
+  <select id="lens" name="lens" onload="disableProductsDropdown()", onchange="disableProductsDropdown()">
   </select>  <br><br>
+  
+  <label for="focus">Product:</label>
+  <select id="focus" name="focus">
+  </select>  <br><br>
+
   <label for="date_received_min">Date min:</label>
   <input type="date" id="date_received_min" name="date_received_min"><br><br>
   <label for="date_received_max">Date max:</label>
@@ -91,7 +96,11 @@ if (!empty($_GET)) {
 const data = <?php echo $response?>;
 
 // set up dropdowns
-const dropdowns = {'trend_interval': ['year', 'quarter', 'month', 'week', 'day'], 'lens': ['overview', 'product']}
+const products = ['Debt collection', 'Money transfer, virtual currency, or money service', 'Credit reporting, credit repair services, or other personal consumer reports',
+ 'Checking or savings account', 'Credit card or prepaid card', 'Vehicle loan or lease', 'Mortgage', 'Student loan',
+ 'Payday loan, title loan, or personal loan']
+
+const dropdowns = {'trend_interval': ['year', 'quarter', 'month', 'week', 'day'], 'lens': ['overview', 'product'], 'focus': products}
 
 for (dropdown in dropdowns){
     for (option of dropdowns[dropdown]){
@@ -102,9 +111,26 @@ for (dropdown in dropdowns){
     };
 };
 
+
+
+function disableProductsDropdown(){
+  let lens = document.getElementById('lens');
+  let focus = document.getElementById('focus');
+  if (lens.value == 'product'){
+    focus.disabled = false;
+  } else {
+    focus.disabled = true;
+  }
+};
+
 </script>
 
 <script type="text/javascript" src="src/cfpb_script.js"></script>
+
+<script>
+// Set disabled product dropdown on page load.
+disableProductsDropdown();
+</script>
 
 </body>
 </html> 
