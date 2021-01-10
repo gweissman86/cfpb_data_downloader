@@ -1,5 +1,6 @@
 body {
     font-family: sans-serif;
+    background-color: lightgray;
 }
 
 table, tr, td, th {
@@ -13,12 +14,15 @@ table {
   max-width: 300px;
 }
 
-.primary {
-    margin: 15px;
-    padding: 10px;
+div.primary {
+    margin-top: 30px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 15px;
+    background-color: white;
+    max-width: 600px;
 }
 
-
-a.button {
-    appearance: button;
+#results {
+/*    background-color: pink; */
 }
