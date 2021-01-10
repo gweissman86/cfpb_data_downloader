@@ -5,30 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <title>Get CFPB complaint data</title>
 
-<style>
-table, tr, td, th {
-  border: 1px solid black;
-  border-collapse: collapse;
-  text-align: right;
-  padding: 3px;
-}
+<link rel="stylesheet" href="src/style.css">
 
-table {
-  max-width: 300px;
-}
-
-</style>
 </head>
 
 <body>
-<p><strong>CFPB_data_downloader</strong></p>
 
-<div id="intro_graf">
+<div id="intro" class="primary">
+<h1>CFPB_data_downloader</h1>
+
 <p>This is a very in progress tool for downloading complaint trend data from the Consumer Financial Protection Bureau (CFPB). The site performs a basic request using the <a href="https://cfpb.github.io/api/ccdb/index.html">CFPB's API</a>, and then makes that data available as a table and CSV for download.</p>
 <p>See the code on <a href="https://github.com/gweissman86/cfpb_data_downloader">Github</a>.</p>
 </div>
 
-<p><strong>Set trend options:</strong></p>
+<div id="options" class="primary">
+<h2> Set trend options:</h2>
 
 <form>
   <label for="trend_interval">Trend interval:</label>
@@ -51,18 +42,19 @@ table {
   <input type="submit" value="Submit">
 </form> 
 <br>
-<a id="reset" href="">Reset page</a>
+<a id="reset" class="button" href="" >Reset page</a>
 
-<br><br>
-<strong>Results</strong>
+</div>
 
-<br><br>
+<div id="results" class="primary">
+<h2>Results</h2>
+
 <div>
-Total complaints: <span id="total_complaints"></span>
+<strong>Total complaints:</strong> <span id="total_complaints"></span>
 
 <br><br>
 
-Complaints by date:<br>
+<strong>Complaints by date:</strong><br>
 <a id="dl_complaints_by_date"></a>
 <table id="complaints_by_date" >
 <tr>
@@ -71,13 +63,15 @@ Complaints by date:<br>
 </table>
 
 <br><br>
-Complaints by product:<br>
+<strong>Complaints by product:</strong><br>
 <a id="dl_complaints_by_product"></a>
 <table id="complaints_by_product" >
 <tr>
 <th>Product name</th><th># complaints</th>
 </tr>
 </table>
+</div>
+
 </div>
 
 <?php
