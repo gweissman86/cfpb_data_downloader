@@ -24,8 +24,9 @@ if (queryString){
 };
 
 // create CSV strings for exporting
-let dateCSV = 'data:text/csv;charset=utf-8,period beginning,complaints';
-let productCSV = 'data:text/csv;charset=utf-8,product,complaints';
+const encodeHeader = 'data:text/csv;charset=utf-8,'
+let dateCSV = encodeHeader + 'period beginning,complaints';
+let productCSV = encodeHeader + 'product,complaints';
 
 
 if (data) {
@@ -65,7 +66,7 @@ if (data) {
         table.appendChild(row);
 
         // make CSV
-        dateCSV += '\n' + date + ',' + String(dateObj['doc_count'])
+        dateCSV += '\n' + date + ',' + String(dateObj['doc_count']);
     };
 
     // create complaints by product table
@@ -88,6 +89,9 @@ if (data) {
 
         table = document.getElementById("complaints_by_product");
         table.appendChild(row);
+
+        // make CSV
+        productCSV += '\n' + `"${product}"` + ',' + String(prodObj['doc_count']);
     };
     
     // create CSVs
@@ -95,7 +99,14 @@ if (data) {
     const date_dl_el = document.getElementById('dl_complaints_by_date');
     date_dl_el.setAttribute('href', encodedDateCSV);
     date_dl_el.setAttribute('download', 'complaints_by_date.csv');
-    date_dl_el.innerText = '(Download data)'
+    date_dl_el.innerText = '(Download data)';
+
+    const encodedProdCSV = encodeURI(productCSV);
+    const prod_dl_el = document.getElementById('dl_complaints_by_product');
+    prod_dl_el.setAttribute('href', encodedProdCSV);
+    prod_dl_el.setAttribute('download', 'complaints_by_product.csv');
+    prod_dl_el.innerText = '(Download data)';
+
 
     //test
 
