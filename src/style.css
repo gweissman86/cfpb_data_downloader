@@ -3,6 +3,10 @@ body {
     background-color: lightgray;
 }
 
+select {
+    max-width: 80%;
+}
+
 table, tr, td, th {
   border: 1px solid black;
   border-collapse: collapse;
