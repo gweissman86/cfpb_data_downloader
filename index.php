@@ -14,8 +14,8 @@
 <div id="intro" class="primary">
 <h1>CFPB trend data</h1>
 
-<p>This is a (very in progress) tool for downloading complaint trend data from the Consumer Financial Protection Bureau (CFPB). The site performs a basic request using the <a href="https://cfpb.github.io/api/ccdb/index.html">CFPB's API</a>, and then makes that data available as a table and CSV for download.</p>
-<p>See the code on <a href="https://github.com/gweissman86/cfpb_data_downloader">Github</a>.</p>
+<p>This is a (very in progress) tool for downloading complaint trend data from the Consumer Financial Protection Bureau (CFPB). The site requests data using the <a href="https://cfpb.github.io/api/ccdb/index.html">CFPB's API</a>, and then makes that data available as a table and CSV for download.</p>
+<p>The code is on <a href="https://github.com/gweissman86/cfpb_data_downloader">Github</a>.</p>
 </div>
 
 <div id="options" class="primary">
@@ -27,12 +27,14 @@
   </select>  <br><br>
   
   <label for="lens">Lens:</label>
-  <select id="lens" name="lens" onload="disableProductsDropdown()", onchange="disableProductsDropdown()">
+  <select id="lens" name="lens" onchange="disableProductsDropdown()">
   </select>  <br><br>
   
   <label for="focus">Product:</label>
   <select id="focus" name="focus">
   </select>  <br><br>
+
+  
 
   <label for="date_received_min">Date min:</label>
   <input type="date" id="date_received_min" name="date_received_min"><br><br>
