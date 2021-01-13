@@ -19,7 +19,7 @@
 </div>
 
 <div id="options" class="primary">
-<h2> Set trend options:</h2>
+<h2> Set trend options</h2>
 
 <form>
   <label for="trend_interval">Trend interval:</label>
