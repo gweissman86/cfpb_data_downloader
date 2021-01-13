@@ -1,4 +1,4 @@
-# cfpb_data_downloader
+# CFPB trend data downloader
 
 Tool for downloading CFPB trend data using the CFPB's Consumer Complaints Database API.
 
