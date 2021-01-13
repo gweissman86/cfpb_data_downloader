@@ -12,9 +12,9 @@
 <body>
 
 <div id="intro" class="primary">
-<h1>CFPB_data_downloader</h1>
+<h1>CFPB trend data</h1>
 
-<p>This is a very in progress tool for downloading complaint trend data from the Consumer Financial Protection Bureau (CFPB). The site performs a basic request using the <a href="https://cfpb.github.io/api/ccdb/index.html">CFPB's API</a>, and then makes that data available as a table and CSV for download.</p>
+<p>This is a (very in progress) tool for downloading complaint trend data from the Consumer Financial Protection Bureau (CFPB). The site performs a basic request using the <a href="https://cfpb.github.io/api/ccdb/index.html">CFPB's API</a>, and then makes that data available as a table and CSV for download.</p>
 <p>See the code on <a href="https://github.com/gweissman86/cfpb_data_downloader">Github</a>.</p>
 </div>
 
@@ -52,7 +52,7 @@
 <div>
 <strong>Total complaints:</strong> <span id="total_complaints"></span>
 
-<br><br>
+<!-- <br><br>
 
 <strong>Complaints by date:</strong><br>
 <a id="dl_complaints_by_date"></a>
@@ -69,7 +69,8 @@
 <tr>
 <th>Product name</th><th># complaints</th>
 </tr>
-</table>
+</table> -->
+
 </div>
 
 </div>

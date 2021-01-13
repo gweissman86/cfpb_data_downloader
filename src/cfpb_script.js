@@ -23,10 +23,37 @@ if (queryString){
   document.getElementById('date_received_max').value = dateMax.toLocaleDateString('en-CA');
 };
 
+// function for switching date to UTC
+function standardDate(date){
+    let offset = date.getTimezoneOffset();
+    date.setMinutes(date.getMinutes() + offset);
+    return date.toLocaleDateString()
+  };
+
 // create CSV strings for exporting
 const encodeHeader = 'data:text/csv;charset=utf-8,'
 let dateCSV = encodeHeader + 'period beginning,complaints';
 let productCSV = encodeHeader + 'product,complaints';
+
+// function for creating table
+function makeTable(tableTitle, id, headers){
+    let tableDiv = document.createElement('div');
+    tableDiv.className = 'resultTable';
+    tableDiv.innerHTML = `<h3 class="tableTitle">${tableTitle}</h3><a id="dl_${id}"</a>`;
+    let tableEl = document.createElement('table');
+    tableEl.id = id;
+    let headerRow = document.createElement('tr');
+    
+    for (const header of headers){
+        let th = document.createElement('th');
+        th.innerText = header;
+        headerRow.appendChild(th)
+    };
+
+    tableEl.appendChild(headerRow);
+    tableDiv.appendChild(tableEl);
+    document.getElementById('results').appendChild(tableDiv);
+};
 
 
 if (data) {
@@ -34,15 +61,9 @@ if (data) {
     total_complaints = data['aggregations']['dateRangeArea']['doc_count'];
     document.getElementById('total_complaints').innerHTML = total_complaints.toLocaleString();
 
-    function standardDate(date){
-      let offset = date.getTimezoneOffset();
-      date.setMinutes(date.getMinutes() + offset);
-      return date.toLocaleDateString()
-    };
-
-
-
     // create the complaints by date table.
+    makeTable('Complaints by date', 'complaints_by_date', ['Period beginning', 'Complaints']);
+    
     const byDate = data['aggregations']["dateRangeArea"]['dateRangeArea']["buckets"];
     
 
@@ -70,6 +91,7 @@ if (data) {
     };
 
     // create complaints by product table
+    makeTable('Complaints by product', 'complaints_by_product', ['Product', 'Complaints']);
     const byProduct = data['aggregations']['product']['product']['buckets'];
 
     for (let prodObj of byProduct){

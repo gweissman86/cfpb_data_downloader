@@ -30,3 +30,7 @@ div.primary {
 #results {
 /*    background-color: pink; */
 }
+
+.tableTitle {
+  margin: 10px 0px 2px;
+}
