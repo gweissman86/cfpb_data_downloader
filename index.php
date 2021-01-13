@@ -49,29 +49,7 @@
 <div id="results" class="primary">
 <h2>Results</h2>
 
-<div>
-<strong>Total complaints:</strong> <span id="total_complaints"></span>
 
-<!-- <br><br>
-
-<strong>Complaints by date:</strong><br>
-<a id="dl_complaints_by_date"></a>
-<table id="complaints_by_date" >
-<tr>
-<th>Period beginning</th><th># complaints</th>
-</tr>
-</table>
-
-<br><br>
-<strong>Complaints by product:</strong><br>
-<a id="dl_complaints_by_product"></a>
-<table id="complaints_by_product" >
-<tr>
-<th>Product name</th><th># complaints</th>
-</tr>
-</table> -->
-
-</div>
 
 </div>
 

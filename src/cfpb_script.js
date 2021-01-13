@@ -30,16 +30,19 @@ function standardDate(date){
     return date.toLocaleDateString()
   };
 
-// create CSV strings for exporting
-const encodeHeader = 'data:text/csv;charset=utf-8,'
-let dateCSV = encodeHeader + 'period beginning,complaints';
-let productCSV = encodeHeader + 'product,complaints';
+// FUNCTION FOR CREATING TABLE
+// This is a giant function that makes the table and CSVs and adds everything to the page.
+// It's a mess, and there's probably a better way to do this.
+function makeTable(tableTitle, id, headers, tableData){
 
-// function for creating table
-function makeTable(tableTitle, id, headers){
+    // prep csv data
+    const encodeHeader = 'data:text/csv;charset=utf-8,';
+    let CSVstring = encodeHeader + headers.join(',');
+    
+    // make div and element for table, and add headers.
     let tableDiv = document.createElement('div');
     tableDiv.className = 'resultTable';
-    tableDiv.innerHTML = `<h3 class="tableTitle">${tableTitle}</h3><a id="dl_${id}"</a>`;
+    
     let tableEl = document.createElement('table');
     tableEl.id = id;
     let headerRow = document.createElement('tr');
@@ -51,85 +54,87 @@ function makeTable(tableTitle, id, headers){
     };
 
     tableEl.appendChild(headerRow);
+
+
+    // loop through data and append data to table
+    for (const record of tableData){
+        let row = document.createElement('tr');
+        
+        let col1_data = record['key'];
+        
+        // if 'key' is a number, then it's a date. convert to date object.
+        if (typeof col1_data == 'number'){
+            col1_data = new Date(record['key']);
+            col1_data = standardDate(col1_data);
+        };        
+        
+        let col1 = document.createElement('td');
+        col1.innerText = col1_data;
+        row.appendChild(col1);
+
+        let col2_data = record['doc_count'].toLocaleString();
+
+        let col2 = document.createElement('td');
+        col2.innerText = col2_data;
+        row.appendChild(col2);
+
+        tableEl.appendChild(row);
+
+        // add row to CSV
+        CSVstring += '\n' + col1_data + ',' + String(record['doc_count']);
+    };
+    
+    let tableTitleEl = document.createElement('h3');
+    tableTitleEl.className = 'tableTitle';
+    tableTitleEl.innerText = tableTitle;
+
+    let dlLinkEl = document.createElement('a');
+
+    // create CSV
+    const encodedCSV = encodeURI(CSVstring);
+    
+    dlLinkEl.setAttribute('href', encodedCSV);
+    dlLinkEl.setAttribute('download', `${id}.csv`);
+    dlLinkEl.innerText = '(Download data)';
+
+
+    // add to page
+    tableDiv.appendChild(tableTitleEl);
+    tableDiv.appendChild(dlLinkEl);
+
     tableDiv.appendChild(tableEl);
     document.getElementById('results').appendChild(tableDiv);
 };
 
 
+
 if (data) {
     // Load total # of complaints to page
-    total_complaints = data['aggregations']['dateRangeArea']['doc_count'];
-    document.getElementById('total_complaints').innerHTML = total_complaints.toLocaleString();
-
-    // create the complaints by date table.
-    makeTable('Complaints by date', 'complaints_by_date', ['Period beginning', 'Complaints']);
+    total_complaints_div = document.createElement('div');    
+    total_complaints = data['aggregations']['dateRangeArea']['doc_count'].toLocaleString();
     
-    const byDate = data['aggregations']["dateRangeArea"]['dateRangeArea']["buckets"];
+    total_complaints_div.innerHTML = `<strong>Total complaints:</strong> ${total_complaints}`;
+    document.getElementById('results').appendChild(total_complaints_div);
+
     
-
-    for (let dateObj of byDate){
-        let row = document.createElement('tr');
-        
-        let rawDate = new Date(dateObj['key']);
-        let date = standardDate(rawDate);
-        
-        let dateCol = document.createElement('td');
-        dateCol.innerText = date;
-        row.appendChild(dateCol);
-
-        let complaints = dateObj['doc_count'].toLocaleString();
-
-        let compCol = document.createElement('td');
-        compCol.innerText = complaints;
-        row.appendChild(compCol);
-
-        table = document.getElementById("complaints_by_date");
-        table.appendChild(row);
-
-        // make CSV
-        dateCSV += '\n' + date + ',' + String(dateObj['doc_count']);
-    };
-
     // create complaints by product table
-    makeTable('Complaints by product', 'complaints_by_product', ['Product', 'Complaints']);
-    const byProduct = data['aggregations']['product']['product']['buckets'];
+    const byProduct = data['aggregations']['product']['product']['buckets'];    
+    makeTable('Complaints by product', 'complaints_by_product', ['Product', 'Complaints'], byProduct);
 
-    for (let prodObj of byProduct){
-        let row = document.createElement('tr');
-        
-        let product = prodObj['key'];
-                
-        let prodCol = document.createElement('td');
-        prodCol.innerText = product;
-        row.appendChild(prodCol);
-
-        let complaints = prodObj['doc_count'].toLocaleString();
-
-        let compCol = document.createElement('td');
-        compCol.innerText = complaints;
-        row.appendChild(compCol);
-
-        table = document.getElementById("complaints_by_product");
-        table.appendChild(row);
-
-        // make CSV
-        productCSV += '\n' + `"${product}"` + ',' + String(prodObj['doc_count']);
+    // create complaints by issue table
+    
+    if (params.get('lens') == 'product'){
+        const byIssue = data['aggregations']['issue']['issue']['buckets'];    
+        makeTable('Complaints by issue', 'complaints_by_issue', ['Issue', 'Complaints'], byIssue);
     };
     
-    // create CSVs
-    const encodedDateCSV = encodeURI(dateCSV);
-    const date_dl_el = document.getElementById('dl_complaints_by_date');
-    date_dl_el.setAttribute('href', encodedDateCSV);
-    date_dl_el.setAttribute('download', 'complaints_by_date.csv');
-    date_dl_el.innerText = '(Download data)';
+    // create the complaints by date table.        
+    const byDate = data['aggregations']["dateRangeArea"]['dateRangeArea']["buckets"];
+    makeTable('Complaints by date', 'complaints_by_date', ['Period beginning', 'Complaints'], byDate); 
+    
 
-    const encodedProdCSV = encodeURI(productCSV);
-    const prod_dl_el = document.getElementById('dl_complaints_by_product');
-    prod_dl_el.setAttribute('href', encodedProdCSV);
-    prod_dl_el.setAttribute('download', 'complaints_by_product.csv');
-    prod_dl_el.innerText = '(Download data)';
-
-
-    //test
-
+} else{
+    instructions = document.createElement('p');
+    instructions.innerHTML = '<em>Submit options to view trend data.</em>';
+    document.getElementById('results').appendChild(instructions);
 };
