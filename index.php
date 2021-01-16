@@ -32,16 +32,18 @@
   
   <label for="focus">Product:</label>
   <select id="focus" name="focus">
-  </select>  <br><br>
-
-  
+  </select>  <br><br>  
 
   <label for="date_received_min">Date min:</label>
   <input type="date" id="date_received_min" name="date_received_min"><br><br>
   <label for="date_received_max">Date max:</label>
   <input type="date" id="date_received_max" name="date_received_max"><br><br>
   
+  <input type="hidden" id="sub_lens_depth" name="sub_lens_depth" value="100">
+  <input type="hidden" id="trend_depth" name="trend_depth" value="100">
+
   <input type="submit" value="Submit">
+
 </form> 
 <br>
 <a id="reset" class="button" href="" >Reset page</a>
@@ -59,7 +61,8 @@
 // query the CFPB API
 if (!empty($_GET)) {
     $url = "https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/trends?";
-    $response = file_get_contents($url . http_build_query($_GET));
+    $requestUrl = $url . http_build_query($_GET);
+    $response = file_get_contents($requestUrl);
 } else {
     $response = 0;
 };
@@ -69,6 +72,8 @@ if (!empty($_GET)) {
 <script>
 //load data
 const data = <?php echo $response?>;
+
+const requestUrl = '<?php echo $requestUrl?>';
 
 // set up dropdowns
 const products = ['Debt collection', 'Money transfer, virtual currency, or money service', 'Credit reporting, credit repair services, or other personal consumer reports',
@@ -99,12 +104,29 @@ function disableProductsDropdown(){
 };
 
 </script>
-
+<script type="text/javascript" src="src/cfpb_functions.js"></script>
 <script type="text/javascript" src="src/cfpb_script.js"></script>
 
 <script>
 // Set disabled product dropdown on page load.
 disableProductsDropdown();
+
+// link to full api response
+
+if (data) {
+  const responseDiv = document.createElement('div');
+  responseDiv.style.margin='10px 0px';
+
+  const responseA = document.createElement('a')
+  responseA.href = requestUrl;
+  responseA.innerText = 'View original CFPB API code string JSON response';
+  responseA.target = '_blank';
+  responseA.style.fontStyle = 'italic';
+
+  responseDiv.appendChild(responseA);
+  document.getElementById('results').appendChild(responseDiv);
+};
+
 </script>
 
 </body>
