@@ -14,14 +14,18 @@
 <div id="intro" class="primary">
 <h1>CFPB trend data</h1>
 
-<p>This is a (very in progress) tool for downloading complaint trend data from the Consumer Financial Protection Bureau (CFPB). The site requests data using the <a href="https://cfpb.github.io/api/ccdb/index.html">CFPB's API</a>, and then makes that data available as a table and CSV for download.</p>
-<p>The code is on <a href="https://github.com/gweissman86/cfpb_data_downloader">Github</a>.</p>
+<p>This is a (very in progress) tool for downloading complaint trend data from the Consumer Financial Protection Bureau (CFPB). The site requests data using the <a href="https://cfpb.github.io/api/ccdb/index.html" target='_blank'>CFPB's API</a>, and then makes that data available as a table and CSV for download.</p>
+<p>The code is on <a href="https://github.com/gweissman86/cfpb_data_downloader" target='_blank'>Github</a>.</p>
 </div>
 
 <div id="options" class="primary">
 <h2> Set trend options</h2>
 
 <form>
+<label for="search_term">Search term (optional):</label>
+  <input type="text" id="search_term" name="search_term">
+  </select>  <br><br>
+  
   <label for="trend_interval">Trend interval:</label>
   <select id="trend_interval" name="trend_interval">
   </select>  <br><br>
@@ -61,7 +65,7 @@
 // query the CFPB API
 if (!empty($_GET)) {
     $url = "https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/trends?";
-    $requestUrl = $url . http_build_query($_GET);
+    $requestUrl = $url . http_build_query(array_filter($_GET));
     $response = file_get_contents($requestUrl);
 } else {
     $response = 0;
