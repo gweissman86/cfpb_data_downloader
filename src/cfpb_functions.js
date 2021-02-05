@@ -8,7 +8,7 @@ function standardDate(date){
 // FUNCTION FOR CREATING TABLE
 // This is a giant function that makes the table and CSVs and adds everything to the page.
 // It's a mess, and there's probably a better way to do this.
-function makeTable(tableTitle, id, headers, tableData){
+function makeTable(tableTitle, id, headers, tableData, otherComplaints){
 
     // prep csv string
     const encodeHeader = 'data:text/csv;charset=utf-8,';
@@ -29,6 +29,12 @@ function makeTable(tableTitle, id, headers, tableData){
     };
 
     tableEl.appendChild(headerRow);
+
+    // make other doc count
+    if (otherComplaints){
+        let otherComplaintsObj = {key: 'Other complaints', doc_count: otherComplaints};
+        tableData.push(otherComplaintsObj);
+    };
 
 
     // loop through data and append data to table

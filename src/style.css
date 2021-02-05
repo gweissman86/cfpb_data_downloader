@@ -34,3 +34,8 @@ div.primary {
 .tableTitle {
   margin: 18px 0px 2px;
 }
+
+.tooltip{
+  text-decoration: underline;
+  color: darkcyan;
+}

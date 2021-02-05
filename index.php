@@ -30,7 +30,7 @@
   <select id="trend_interval" name="trend_interval">
   </select>  <br><br>
   
-  <label for="lens">Lens:</label>
+  <label for="lens" title="Select &ldquo;overview&rdquo; to view all complaints, select &ldquo;product&rdquo; to view sub-products and issues for a specific financial product." class="tooltip">Lens:</label>
   <select id="lens" name="lens" onchange="disableProductsDropdown()">
   </select>  <br><br>
   
@@ -65,6 +65,9 @@
 // query the CFPB API
 if (!empty($_GET)) {
     $url = "https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/trends?";
+    
+    // note that array_filter filters out any blank variable.
+    // this is primarily to get rid of blank search terms, which screw up the request
     $requestUrl = $url . http_build_query(array_filter($_GET));
     $response = file_get_contents($requestUrl);
 } else {

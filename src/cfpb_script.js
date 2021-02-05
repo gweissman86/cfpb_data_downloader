@@ -33,14 +33,16 @@ if (data) {
 
     
     // create complaints by product table
-    const byProduct = data['aggregations']['product']['product']['buckets'];    
-    makeTable('Complaints by product', 'complaints_by_product', ['Product', 'Complaints'], byProduct);
+    const byProduct = data['aggregations']['product']['product']['buckets'];
+    const byProductOther = data['aggregations']['product']['product']['sum_other_doc_count'];    
+    makeTable('Complaints by product', 'complaints_by_product', ['Product', 'Complaints'], byProduct, byProductOther);
 
     // create complaints by issue table
     
     if (params.get('lens') == 'product'){
-        const byIssue = data['aggregations']['issue']['issue']['buckets'];    
-        makeTable('Complaints by issue', 'complaints_by_issue', ['Issue', 'Complaints'], byIssue);
+        const byIssue = data['aggregations']['issue']['issue']['buckets'];
+        const byIssueOther = data['aggregations']['issue']['issue']['sum_other_doc_count'];    
+        makeTable('Complaints by issue', 'complaints_by_issue', ['Issue', 'Complaints'], byIssue, byIssueOther);
     };
 
     // create complaints by sub-product table
