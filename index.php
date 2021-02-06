@@ -128,7 +128,7 @@ if (data) {
 
   const responseA = document.createElement('a')
   responseA.href = requestUrl;
-  responseA.innerText = 'View original CFPB API code string JSON response';
+  responseA.innerText = 'View raw JSON response string from CFPB';
   responseA.target = '_blank';
   responseA.style.fontStyle = 'italic';
 
