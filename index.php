@@ -52,7 +52,7 @@
 
 </form> 
 <br>
-<a id="reset" class="button" href="" >Reset page</a>
+<a id="reset" class="button" href="" ><button type="button">Reset page</button></a>
 
 </div>
 
