@@ -22,6 +22,24 @@
 <h2> Set trend options</h2>
 
 <form>
+  
+<label for="date_received_min">Date min:</label>
+  <input type="date" id="date_received_min" name="date_received_min"><br><br>
+<label for="date_received_max">Date max:</label>
+  <input type="date" id="date_received_max" name="date_received_max"><br><br>
+  
+  
+  <label for="lens" title="Select &ldquo;overview&rdquo; to view all complaints, select &ldquo;product&rdquo; to view sub-products and issues for a specific financial product." class="tooltip">Lens:</label>
+  <select id="lens" name="lens" onchange="disableProductsDropdown()">
+  </select>  <br><br>
+
+  <label for="focus">Product:</label>
+  <select id="focus" name="focus">
+  </select>  <br><br>  
+
+  <input type="hidden" id="sub_lens_depth" name="sub_lens_depth" value="100">
+  <input type="hidden" id="trend_depth" name="trend_depth" value="100">
+
 <label for="search_term">Search term (optional):</label>
   <input type="text" id="search_term" name="search_term">
   </select>  <br><br>
@@ -29,22 +47,6 @@
   <label for="trend_interval">Trend interval:</label>
   <select id="trend_interval" name="trend_interval">
   </select>  <br><br>
-  
-  <label for="lens" title="Select &ldquo;overview&rdquo; to view all complaints, select &ldquo;product&rdquo; to view sub-products and issues for a specific financial product." class="tooltip">Lens:</label>
-  <select id="lens" name="lens" onchange="disableProductsDropdown()">
-  </select>  <br><br>
-  
-  <label for="focus">Product:</label>
-  <select id="focus" name="focus">
-  </select>  <br><br>  
-
-  <label for="date_received_min">Date min:</label>
-  <input type="date" id="date_received_min" name="date_received_min"><br><br>
-  <label for="date_received_max">Date max:</label>
-  <input type="date" id="date_received_max" name="date_received_max"><br><br>
-  
-  <input type="hidden" id="sub_lens_depth" name="sub_lens_depth" value="100">
-  <input type="hidden" id="trend_depth" name="trend_depth" value="100">
 
   <input type="submit" value="Submit">
 
