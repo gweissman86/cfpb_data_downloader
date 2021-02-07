@@ -23,6 +23,8 @@ if (queryString){
   document.getElementById('date_received_max').value = dateMax.toLocaleDateString('en-CA');
 };
 
+const minDate = new Date(document.getElementById('date_received_min').value);
+
 if (data) {
     // Load total # of complaints to page
     total_complaints_div = document.createElement('div');    
@@ -54,6 +56,12 @@ if (data) {
     // create the complaints by date table.        
     const byDate = data['aggregations']["dateRangeArea"]['dateRangeArea']["buckets"];
     makeTable('Complaints by date', 'complaints_by_date', ['Period beginning', 'Complaints'], byDate); 
+
+    // create complaints by sub-product by date table
+    if (params.get('lens') == 'product'){
+        const bySubProductByDate = data['aggregations']['sub-product']['sub-product']['buckets'];    
+        makeMultiTable('Complaints by sub-product by date', 'complaints_by_subproduct_by_date', ['Sub-product', 'Period beginning', 'Complaints'], bySubProductByDate);
+    };
     
 
 } else{
