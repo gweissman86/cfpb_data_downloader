@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <title>CFPB trend data downloader</title>
 
-<link rel="stylesheet" href="src/style.css">
+<link rel="stylesheet" href="styles/style.css">
 <link rel="icon" 
       type="image/ico" 
       href="http://gideonweissman.com/favicon.ico">
@@ -126,8 +126,8 @@ function disableProductsDropdown(){
 };
 
 </script>
-<script type="text/javascript" src="src/cfpb_functions.js"></script>
-<script type="text/javascript" src="src/cfpb_script.js"></script>
+<script type="text/javascript" src="scripts/cfpb_functions.js"></script>
+<script type="text/javascript" src="scripts/cfpb_script.js"></script>
 
 <script>
 // Set disabled product dropdown on page load.
