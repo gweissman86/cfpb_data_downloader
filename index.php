@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="styles/style.css">
 <link rel="icon" 
       type="image/ico" 
-      href="http://gideonweissman.com/favicon.ico">
+      href="https://gideonweissman.com/favicon.ico">
 
 </head>
 
@@ -18,7 +18,8 @@
 <h1>CFPB trend data downloader</h1>
 
 <p>This is a (work in progress) tool for downloading complaint trend data from the Consumer Financial Protection Bureau (CFPB). The site requests data using the <a href="https://cfpb.github.io/api/ccdb/index.html" target='_blank'>CFPB's API</a>, and then makes that data available as a table and CSV for download.</p>
-<p>Save your URL to revisit trend data -- but note that data may change to reflect changes in the database, particularly for recent dates. View and download individual complaints, and use the CFPB's own trends tool (which doesn't allow downloading), on the <a href="https://www.consumerfinance.gov/data-research/consumer-complaints/search/">Consumer Complaint Database homepage</a>.</p>
+<p>Bookmark your URL to revisit trend data -- but note that data may change to reflect changes in the database, particularly for recent complaints submitted over the last month.</p>
+<p>View and download individual complaints, and use the CFPB's own trends tool (which does not provide a way to downloaded aggregated trend data), on the <a href="https://www.consumerfinance.gov/data-research/consumer-complaints/search/">Consumer Complaint Database homepage</a>.</p>
 <p>The code for this page is on <a href="https://github.com/gweissman86/cfpb_data_downloader" target='_blank'>Github</a>.</p>
 </div>
 
