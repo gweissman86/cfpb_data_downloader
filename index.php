@@ -3,19 +3,23 @@
 
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<title>Get CFPB complaint data</title>
+<title>CFPB trend data downloader</title>
 
 <link rel="stylesheet" href="src/style.css">
+<link rel="icon" 
+      type="image/ico" 
+      href="http://gideonweissman.com/favicon.ico">
 
 </head>
 
 <body>
 
 <div id="intro" class="primary">
-<h1>CFPB trend data</h1>
+<h1>CFPB trend data downloader</h1>
 
 <p>This is a (work in progress) tool for downloading complaint trend data from the Consumer Financial Protection Bureau (CFPB). The site requests data using the <a href="https://cfpb.github.io/api/ccdb/index.html" target='_blank'>CFPB's API</a>, and then makes that data available as a table and CSV for download.</p>
-<p>The code is on <a href="https://github.com/gweissman86/cfpb_data_downloader" target='_blank'>Github</a>.</p>
+<p>Save your URL to revisit trend data -- but note that data may change to reflect changes in the database, particularly for recent dates. View and download individual complaints, and use the CFPB's own trends tool (which doesn't allow downloading), on the <a href="https://www.consumerfinance.gov/data-research/consumer-complaints/search/">Consumer Complaint Database homepage</a>.</p>
+<p>The code for this page is on <a href="https://github.com/gweissman86/cfpb_data_downloader" target='_blank'>Github</a>.</p>
 </div>
 
 <div id="options" class="primary">
@@ -23,36 +27,43 @@
 
 <form>
   
-<label for="date_received_min">Date min:</label>
-  <input type="date" id="date_received_min" name="date_received_min"><br><br>
-<label for="date_received_max">Date max:</label>
-  <input type="date" id="date_received_max" name="date_received_max"><br><br>
-  
-  
-  <label for="lens" title="Select &ldquo;overview&rdquo; to view all complaints, select &ldquo;product&rdquo; to view sub-products and issues for a specific financial product." class="tooltip">Lens:</label>
-  <select id="lens" name="lens" onchange="disableProductsDropdown()">
-  </select>  <br><br>
+<p><label for="date_received_min">Date min:</label>
+  <input type="date" id="date_received_min" name="date_received_min"></p>
 
-  <label for="focus">Product:</label>
+<p><label for="date_received_max">Date max:</label>
+  <input type="date" id="date_received_max" name="date_received_max"><br>
+  <span class="form_instructions">Results will include complaints up to, but not including, the "Date max" selection.</span></p>
+  
+  
+<p><label for="lens">Lens:</label>
+  <select id="lens" name="lens" onchange="disableProductsDropdown()">
+  </select>  <br>
+  <span class="form_instructions">Select &ldquo;overview&rdquo; to view complaints for all financial products. Select &ldquo;product&rdquo; to view complaints for a specific product, broken down by issue and sub-product.</span></p>
+
+<p><label for="focus">Product:</label>
   <select id="focus" name="focus">
-  </select>  <br><br>  
+  </select> </p>  
 
   <input type="hidden" id="sub_lens_depth" name="sub_lens_depth" value="100">
   <input type="hidden" id="trend_depth" name="trend_depth" value="100">
 
-<label for="search_term">Search term (optional):</label>
-  <input type="text" id="search_term" name="search_term">
-  </select>  <br><br>
-  
-  <label for="trend_interval">Trend interval:</label>
-  <select id="trend_interval" name="trend_interval">
-  </select>  <br><br>
+  <p><label for="state">State:</label>
+  <select id="state" name="state">
+  </select>  <br>
+  <span class="form_instructions">Leave state blank to see national complaints.</span>
+  </p>
 
-  <input type="submit" value="Submit">
+<p><label for="search_term">Search term (optional):</label>
+  <input type="text" id="search_term" name="search_term">
+  </select>  </p>
+  
+<p><label for="trend_interval">Trend interval:</label>
+  <select id="trend_interval" name="trend_interval">
+  </select>  </p>
+
+  <p><input type="submit" value="Submit" style="margin-right:10px;"><a id="reset" class="button" href="" ><button type="button">Reset page</button></a></p>
 
 </form> 
-<br>
-<a id="reset" class="button" href="" ><button type="button">Reset page</button></a>
 
 </div>
 
@@ -89,7 +100,9 @@ const products = ['Debt collection', 'Money transfer, virtual currency, or money
  'Checking or savings account', 'Credit card or prepaid card', 'Vehicle loan or lease', 'Mortgage', 'Student loan',
  'Payday loan, title loan, or personal loan']
 
-const dropdowns = {'trend_interval': ['year', 'quarter', 'month', 'week', 'day'], 'lens': ['overview', 'product'], 'focus': products}
+const states = ['', 'AK','AL','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','PR','RI','SC','SD','TN','TX','UT','VT','VA','VI','WA','WV','WI','WY']
+
+const dropdowns = {'trend_interval': ['year', 'quarter', 'month', 'week', 'day'], 'lens': ['overview', 'product'], 'focus': products, 'state':states}
 
 for (dropdown in dropdowns){
     for (option of dropdowns[dropdown]){
