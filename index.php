@@ -25,7 +25,7 @@
 
 <div id="options" class="primary">
 <h2> Set trend options</h2>
-Set the following options and click submit to view complaint data. Some options will be greyed out depending on the lens selected.
+Set the following options and click submit to view complaint data. Some options will be unavailable depending on the lens selected.
 
 <form>
   
