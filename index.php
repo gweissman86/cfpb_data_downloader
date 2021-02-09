@@ -69,26 +69,48 @@
 </div>
 
 <div id="results" class="primary">
+
 <h2>Results</h2>
 
 
 
 </div>
 
+<div class="primary">
+<h2>Testing</h2>
+
 <?php
 // query the CFPB API
-if (!empty($_GET)) {
+// if lens is overview or product, then use the CFPB Trends API URL
+// if lens is "by state", then use the geo API, first removing the "by state" lens from $_GET because it doesn't apply.
+
+if ( (!empty($_GET)) && (in_array($_GET['lens'], array('overview', 'product')))  ) {
     $url = "https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/trends?";
     
     // note that array_filter filters out any blank variable.
     // this is primarily to get rid of blank search terms, which screw up the request
     $requestUrl = $url . http_build_query(array_filter($_GET));
     $response = file_get_contents($requestUrl);
+} elseif ( (!empty($_GET)) && ($_GET['lens'] == 'by state')  ) {
+    unset($_GET['lens']);
+  
+    $url = "https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/geo/states?";
+    $requestUrl = $url . http_build_query(array_filter($_GET));
+    $response = file_get_contents($requestUrl);
+    
 } else {
     $response = 0;
 };
 
+
+//unset($_GET['date_received_min']);
+echo var_dump($_GET);
+echo "<br><br>";
+echo $_GET['lens'];
+echo "<br><br>" . $url . http_build_query(array_filter($_GET));
+
 ?>
+</div>
 
 <script>
 //load data
@@ -103,7 +125,7 @@ const products = ['Debt collection', 'Money transfer, virtual currency, or money
 
 const states = ['', 'AK','AL','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','PR','RI','SC','SD','TN','TX','UT','VT','VA','VI','WA','WV','WI','WY']
 
-const dropdowns = {'trend_interval': ['year', 'quarter', 'month', 'week', 'day'], 'lens': ['overview', 'product'], 'focus': products, 'state':states}
+const dropdowns = {'trend_interval': ['year', 'quarter', 'month', 'week', 'day'], 'lens': ['overview', 'product', 'by state'], 'focus': products, 'state':states}
 
 for (dropdown in dropdowns){
     for (option of dropdowns[dropdown]){
