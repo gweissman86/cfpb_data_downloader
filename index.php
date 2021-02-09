@@ -25,6 +25,7 @@
 
 <div id="options" class="primary">
 <h2> Set trend options</h2>
+Set the following options and click submit to view complaint data. Some options will be greyed out depending on the lens selected.
 
 <form>
   
@@ -52,19 +53,21 @@
 
   <p><label for="state">State:</label>
   <select id="state" name="state">
-  </select>  <br>
-  <span class="form_instructions">Leave state blank to see national complaints.</span>
+  </select>  
+  <br><span class="form_instructions">Leave state blank to see national complaints.</span>
   </p>
 
 <p><label for="search_term">Search term (optional):</label>
   <input type="text" id="search_term" name="search_term">
-  </select>  </p>
+  </select>  
+  <br><span class="form_instructions">Only retun complaints with a complaint narrative containing search term text.</span>
+  </p>
   
 <p><label for="trend_interval">Trend interval:</label>
   <select id="trend_interval" name="trend_interval">
   </select>  </p>
 
-  <p><input type="submit" value="Submit" style="margin-right:10px;"><a id="reset" class="button" href="" ><button type="button">Reset page</button></a></p>
+  <p><input type="submit" value="Submit" style="margin-right:10px;"><a id="reset" class="button" href="" ><button type="button">Reset options</button></a></p>
 
 </form> 
 
