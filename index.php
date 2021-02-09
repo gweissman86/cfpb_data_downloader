@@ -17,7 +17,7 @@
 <div id="intro" class="primary">
 <h1>CFPB trend data downloader</h1>
 
-<p>This is a (work in progress) tool for downloading complaint trend data from the Consumer Financial Protection Bureau (CFPB). The site requests data using the <a href="https://cfpb.github.io/api/ccdb/index.html" target='_blank'>CFPB's API</a>, and then makes that data available as a table and CSV for download.</p>
+<p>This is a tool for downloading complaint trend data from the Consumer Financial Protection Bureau (CFPB). The site requests data using the <a href="https://cfpb.github.io/api/ccdb/index.html" target='_blank'>CFPB's API</a>, and then makes that data available as a table and CSV for download.</p>
 <p>Bookmark your URL to revisit trend data -- but note that data may change to reflect changes in the database, particularly for recent complaints submitted over the last month.</p>
 <p>View and download individual complaints, and use the CFPB's own trends tool (which does not provide a way to downloaded aggregated trend data), on the <a href="https://www.consumerfinance.gov/data-research/consumer-complaints/search/">Consumer Complaint Database homepage</a>.</p>
 <p>The code for this page is on <a href="https://github.com/gweissman86/cfpb_data_downloader" target='_blank'>Github</a>.</p>
@@ -29,21 +29,23 @@
 <form>
   
 <p><label for="date_received_min">Date min:</label>
-  <input type="date" id="date_received_min" name="date_received_min"></p>
+  <input type="date" id="date_received_min" name="date_received_min" required></p>
 
 <p><label for="date_received_max">Date max:</label>
-  <input type="date" id="date_received_max" name="date_received_max"><br>
+  <input type="date" id="date_received_max" name="date_received_max" required><br>
   <span class="form_instructions">Results will include complaints up to, but not including, the "Date max" selection.</span></p>
   
   
 <p><label for="lens">Lens:</label>
   <select id="lens" name="lens" onchange="disableProductsDropdown()">
   </select>  <br>
-  <span class="form_instructions">Select &ldquo;overview&rdquo; to view complaints for all financial products. Select &ldquo;product&rdquo; to view complaints for a specific product, broken down by issue and sub-product.</span></p>
+  <span class="form_instructions">Select &ldquo;overview&rdquo; to view complaints for all financial products. Select &ldquo;product&rdquo; to view complaints for a specific product, aggregated by issue and sub-product. Select "by state" to view complaints aggregated by US state.</span></p>
 
 <p><label for="focus">Product:</label>
   <select id="focus" name="focus">
-  </select> </p>  
+  </select> <br>
+  <span class="form_instructions">Leave product blank to see complaints for all products.</span></p>
+  </p>  
 
   <input type="hidden" id="sub_lens_depth" name="sub_lens_depth" value="100">
   <input type="hidden" id="trend_depth" name="trend_depth" value="100">
@@ -76,9 +78,6 @@
 
 </div>
 
-<div class="primary">
-<h2>Testing</h2>
-
 <?php
 // query the CFPB API
 // if lens is overview or product, then use the CFPB Trends API URL
@@ -93,6 +92,7 @@ if ( (!empty($_GET)) && (in_array($_GET['lens'], array('overview', 'product'))) 
     $response = file_get_contents($requestUrl);
 } elseif ( (!empty($_GET)) && ($_GET['lens'] == 'by state')  ) {
     unset($_GET['lens']);
+    $_GET['product'] = $_GET['focus'];
   
     $url = "https://www.consumerfinance.gov/data-research/consumer-complaints/search/api/v1/geo/states?";
     $requestUrl = $url . http_build_query(array_filter($_GET));
@@ -102,24 +102,16 @@ if ( (!empty($_GET)) && (in_array($_GET['lens'], array('overview', 'product'))) 
     $response = 0;
 };
 
-
-//unset($_GET['date_received_min']);
-echo var_dump($_GET);
-echo "<br><br>";
-echo $_GET['lens'];
-echo "<br><br>" . $url . http_build_query(array_filter($_GET));
-
 ?>
-</div>
 
 <script>
-//load data
-const data = <?php echo $response?>;
+// initial loading script for the page.
 
+const data = <?php echo $response?>;
 const requestUrl = '<?php echo $requestUrl?>';
 
 // set up dropdowns
-const products = ['Debt collection', 'Money transfer, virtual currency, or money service', 'Credit reporting, credit repair services, or other personal consumer reports',
+const products = ['', 'Debt collection', 'Money transfer, virtual currency, or money service', 'Credit reporting, credit repair services, or other personal consumer reports',
  'Checking or savings account', 'Credit card or prepaid card', 'Vehicle loan or lease', 'Mortgage', 'Student loan',
  'Payday loan, title loan, or personal loan']
 
@@ -132,47 +124,18 @@ for (dropdown in dropdowns){
       let option_el = document.createElement('option');
       option_el.value = option;
       option_el.innerText = option;
+      option_el.id = dropdown + '_' + option;
       document.getElementById(dropdown).appendChild(option_el);
     };
 };
 
 
 
-function disableProductsDropdown(){
-  let lens = document.getElementById('lens');
-  let focus = document.getElementById('focus');
-  if (lens.value == 'product'){
-    focus.disabled = false;
-  } else {
-    focus.disabled = true;
-  }
-};
-
 </script>
 <script type="text/javascript" src="scripts/cfpb_functions.js"></script>
 <script type="text/javascript" src="scripts/cfpb_script.js"></script>
+<script type="text/javascript" src="scripts/cfpb_after_load.js"></script>
 
-<script>
-// Set disabled product dropdown on page load.
-disableProductsDropdown();
-
-// link to full api response
-
-if (data) {
-  const responseDiv = document.createElement('div');
-  responseDiv.style.margin='10px 0px';
-
-  const responseA = document.createElement('a')
-  responseA.href = requestUrl;
-  responseA.innerText = 'View raw JSON response string from CFPB';
-  responseA.target = '_blank';
-  responseA.style.fontStyle = 'italic';
-
-  responseDiv.appendChild(responseA);
-  document.getElementById('results').appendChild(responseDiv);
-};
-
-</script>
 
 </body>
 </html> 
