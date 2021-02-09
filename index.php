@@ -60,7 +60,7 @@ Set the following options and click submit to view complaint data. Some options 
 <p><label for="search_term">Search term (optional):</label>
   <input type="text" id="search_term" name="search_term">
   </select>  
-  <br><span class="form_instructions">Only retun complaints with a complaint narrative containing search term text.</span>
+  <br><span class="form_instructions">Only return complaints with a complaint narrative containing search term text.</span>
   </p>
   
 <p><label for="trend_interval">Trend interval:</label>
