@@ -19,7 +19,7 @@ const lens = params.get('lens');
 if (queryString){
     params.forEach((value, key) => replaceForms(value, key))
 } else {
-  // set default max date to today, and default min date to last year.
+  // if no params, set default max date to today, and default min date to last year.
   dateMax = new Date();
   dateMin = new Date();
   dateMin.setFullYear(dateMin.getFullYear()-2);
