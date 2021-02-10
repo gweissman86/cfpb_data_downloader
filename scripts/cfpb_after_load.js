@@ -39,19 +39,4 @@ function disableProductsDropdown(){
   // Set disabled product dropdown on page load.
   disableProductsDropdown();
   
-  // link to full api response
-  
-  if (data) {
-    const responseDiv = document.createElement('div');
-    responseDiv.style.margin='10px 0px';
-  
-    const responseA = document.createElement('a')
-    responseA.href = requestUrl;
-    responseA.innerText = 'View raw JSON response string from CFPB';
-    responseA.target = '_blank';
-    responseA.style.fontStyle = 'italic';
-  
-    responseDiv.appendChild(responseA);
-    document.getElementById('results').appendChild(responseDiv);
-  };
   
