@@ -14,6 +14,7 @@ const params = new URLSearchParams(queryString);
 
 let lens = '';
 let minDate = '';
+let trendInterval = ''
 
 if (queryString){
     
@@ -23,6 +24,7 @@ if (queryString){
     // Set minimum date for tables.
     minDate = new Date(params.get('date_received_min'));
     lens = params.get('lens');
+    trendInterval = params.get('trend_interval');
 
     // now fetch the CFPB response
     fetch('scripts/query_cfpb.php' + location.search)
@@ -37,7 +39,7 @@ if (queryString){
             
             if (['overview', 'product'].includes(lens)) {
                 total_complaints = data['aggregations']['dateRangeArea']['doc_count'].toLocaleString();
-            } else if (['by state'].includes(lens)) {
+            } else if (['geography'].includes(lens)) {
                 total_complaints = data['aggregations']['state']['doc_count'].toLocaleString();
             }
             
@@ -51,7 +53,7 @@ if (queryString){
             makeTable('Complaints by product', 'complaints_by_product', ['Product', 'Complaints'], byProduct, byProductOther);
 
             // complaints by state table
-            if (lens == 'by state') {
+            if (lens == 'geography') {
                 const byState = data['aggregations']['state']['state']['buckets'];
                 makeTable('Complaints by state', 'complaints_by_state', ['State', 'Complaints'], byState);
             };
@@ -73,13 +75,13 @@ if (queryString){
             
             if (['overview', 'product'].includes(lens)) {
                 const byDate = data['aggregations']["dateRangeArea"]['dateRangeArea']["buckets"];
-                makeTable('Complaints by date', 'complaints_by_date', ['Period beginning', 'Complaints'], byDate); 
+                makeTable(`Complaints by ${trendInterval}`, 'complaints_by_date', ['Period beginning', 'Complaints'], byDate); 
             };
 
             // create complaints by sub-product by date table
             if (lens == 'product'){
                 const bySubProductByDate = data['aggregations']['sub-product']['sub-product']['buckets'];    
-                makeMultiTable('Complaints by sub-product by date', 'complaints_by_subproduct_by_date', ['Sub-product', 'Period beginning', 'Complaints'], bySubProductByDate);
+                makeMultiTable(`Complaints by sub-product by ${trendInterval}`, 'complaints_by_subproduct_by_date', ['Sub-product', 'Period beginning', 'Complaints'], bySubProductByDate);
             };
 
             // link to full api response  

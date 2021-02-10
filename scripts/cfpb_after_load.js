@@ -9,7 +9,7 @@ function disableProductsDropdown(){
     let trend = document.getElementById('trend_interval');
     
     // if lens is product or state, focus is enabled.
-    if (['product', 'by state'].includes(lens)){
+    if (['product', 'geography'].includes(lens)){
       focus.disabled = false;
     } else {
       focus.disabled = true;
@@ -26,7 +26,7 @@ function disableProductsDropdown(){
     }
   
     // if lens is state, state selector and trend interval are disabled
-    if (lens == 'by state'){
+    if (lens == 'geography'){
       state.disabled = true;
       trend.disabled = true;
     } else {

@@ -40,7 +40,7 @@ Set the following options and click submit to view complaint data. Some options 
 <p><label for="lens">Lens:</label>
   <select id="lens" name="lens">
   </select>  <br>
-  <span class="form_instructions">Select &ldquo;overview&rdquo; to view complaints for all financial products. Select &ldquo;product&rdquo; to view complaints for a specific product, aggregated by issue and sub-product. Select "by state" to view complaints aggregated by US state.</span></p>
+  <span class="form_instructions">Select &ldquo;overview&rdquo; to view complaints for all financial products. Select &ldquo;product&rdquo; to view complaints for a specific product, aggregated by issue and sub-product. Select "geography" to view complaints aggregated by US state.</span></p>
 
 <p><label for="focus">Product:</label>
   <select id="focus" name="focus">
@@ -77,8 +77,11 @@ Set the following options and click submit to view complaint data. Some options 
 
 <h2>Results</h2>
 
+</div>
 
-
+<div id="about" class="primary">
+  <h2>About</h2>
+  <p><em>This tool was built by <a href="https://frontiergroup.org">Frontier Group</a>. Frontier Group provides information and ideas to build a healthier, more sustainable America. Frontier Group is part of <a href=https://publicinterestnetwork.org">The Public Interest Network</a>, which operates and supports organizations committed to a shared vision of a better world and a strategic approach to social change.</em></p>
 </div>
 
 
@@ -91,7 +94,9 @@ const products = ['', 'Debt collection', 'Money transfer, virtual currency, or m
 
 const states = ['', 'AK','AL','AZ','AR','CA','CO','CT','DE','DC','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NC','ND','OH','OK','OR','PA','PR','RI','SC','SD','TN','TX','UT','VT','VA','VI','WA','WV','WI','WY']
 
-const dropdowns = {'trend_interval': ['year', 'quarter', 'month', 'week', 'day'], 'lens': ['overview', 'product', 'by state'], 'focus': products, 'state':states}
+const dropdowns =   {'trend_interval': ['year', 'quarter', 'month', 'week', 'day'], 
+                    'lens': ['overview', 'product', 'geography'], 
+                    'focus': products, 'state':states}
 
 for (dropdown in dropdowns){
     for (option of dropdowns[dropdown]){

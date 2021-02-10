@@ -1,9 +1,11 @@
+// FUNCTIONS FOR PARSING CFPB COMPLAINTS API
+// AND GENERATING HTML TABLES AND CSV
+
+
 // function for switching date to UTC
 // this function does 2 things:
 // it returns the date in format m/d/y.
 // it also will return the min date set, if that date is greater than the date provided.
-
-
 
 function standardDate(date){
     date = new Date(date);

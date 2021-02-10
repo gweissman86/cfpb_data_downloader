@@ -12,7 +12,7 @@ if ( (!empty($_GET)) && (in_array($_GET['lens'], array('overview', 'product'))) 
 
     echo '["' . $requestUrl . '",' . file_get_contents($requestUrl) . "]";
     
-} elseif ( (!empty($_GET)) && ($_GET['lens'] == 'by state')  ) {
+} elseif ( (!empty($_GET)) && ($_GET['lens'] == 'geography')  ) {
     unset($_GET['lens']);
     $_GET['product'] = $_GET['focus'];
   
