@@ -10,8 +10,15 @@ select {
 table, tr, td, th {
   border: 1px solid black;
   border-collapse: collapse;
-  text-align: right;
   padding: 3px;
+}
+
+td.keycell {
+  text-align:left;
+}
+
+td.datacell {
+  text-align:right;
 }
 
 table {

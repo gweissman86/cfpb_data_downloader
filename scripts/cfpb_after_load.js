@@ -35,8 +35,8 @@ function disableProductsDropdown(){
     }
   
   };
+
+  document.getElementById('lens').onchange = disableProductsDropdown;
   
   // Set disabled product dropdown on page load.
   disableProductsDropdown();
-  
-  

@@ -38,7 +38,7 @@ Set the following options and click submit to view complaint data. Some options 
   
   
 <p><label for="lens">Lens:</label>
-  <select id="lens" name="lens" onchange="disableProductsDropdown()">
+  <select id="lens" name="lens">
   </select>  <br>
   <span class="form_instructions">Select &ldquo;overview&rdquo; to view complaints for all financial products. Select &ldquo;product&rdquo; to view complaints for a specific product, aggregated by issue and sub-product. Select "by state" to view complaints aggregated by US state.</span></p>
 
@@ -84,9 +84,7 @@ Set the following options and click submit to view complaint data. Some options 
 
 
 <script>
-// initial loading script for the page.
-
-// set up dropdowns
+// set up page dropdowns
 const products = ['', 'Debt collection', 'Money transfer, virtual currency, or money service', 'Credit reporting, credit repair services, or other personal consumer reports',
  'Checking or savings account', 'Credit card or prepaid card', 'Vehicle loan or lease', 'Mortgage', 'Student loan',
  'Payday loan, title loan, or personal loan']
@@ -104,13 +102,12 @@ for (dropdown in dropdowns){
       document.getElementById(dropdown).appendChild(option_el);
     };
 };
-
-
-
 </script>
+
+
 <script type="text/javascript" src="scripts/cfpb_functions.js"></script>
 <script type="text/javascript" src="scripts/cfpb_script.js"></script>
-<script type="text/javascript" src="scripts/cfpb_after_load.js"></script>
+<script type="text/javascript" src="scripts/cfpb_after_load.js" defer></script>
 
 
 </body>

@@ -3,6 +3,8 @@
 // it returns the date in format m/d/y.
 // it also will return the min date set, if that date is greater than the date provided.
 
+
+
 function standardDate(date){
     date = new Date(date);
     if (minDate > date){date = new Date(minDate.getTime())};
@@ -56,12 +58,14 @@ function makeTable(tableTitle, id, headers, tableData, otherComplaints){
         };
         
         let col1 = document.createElement('td');
+        col1.className = 'keycell';
         col1.innerText = col1_data;
         row.appendChild(col1);
 
         let col2_data = record['doc_count'].toLocaleString();
 
         let col2 = document.createElement('td');
+        col2.className = 'datacell';
         col2.innerText = col2_data;
         row.appendChild(col2);
 
@@ -93,7 +97,7 @@ function makeTable(tableTitle, id, headers, tableData, otherComplaints){
     document.getElementById('results').appendChild(tableDiv);
 };
 
-
+// function for making deep table with multiple keys
 function makeMultiTable(tableTitle, id, headers, tableData){
     // prep csv string
     const encodeHeader = 'data:text/csv;charset=utf-8,';
@@ -128,14 +132,17 @@ function makeMultiTable(tableTitle, id, headers, tableData){
             const row = document.createElement('tr');
 
             let key_cell = document.createElement('td');
+            key_cell.className = 'keycell';
             key_cell.innerText = key;
             row.appendChild(key_cell);
 
             let date_cell = document.createElement('td');
+            date_cell.className = 'keycell';
             date_cell.innerText = standardDate(bucket_period['key']);
             row.appendChild(date_cell)
 
             let complaints_cell = document.createElement('td');
+            complaints_cell.className = 'datacell';
             complaints_cell.innerText = bucket_period['doc_count'].toLocaleString();
             row.appendChild(complaints_cell);
 
