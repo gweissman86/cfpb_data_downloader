@@ -18,7 +18,9 @@
 <h1>CFPB trend data downloader</h1>
 
 <p>This is a tool for downloading complaint trend data from the Consumer Financial Protection Bureau (CFPB). The site requests data using the <a href="https://cfpb.github.io/api/ccdb/index.html" target='_blank'>CFPB's API</a>, and then makes that data available as a table and CSV for download.</p>
-<p>Bookmark your URL to revisit trend data -- but note that data may change to reflect changes in the database, particularly for recent complaints submitted over the last month.</p>
+<!--
+  <p>Bookmark your URL to revisit trend data -- but note that data may change to reflect changes in the database, particularly for recent complaints submitted over the last month.</p>
+-->
 <p>View and download individual complaints, and use the CFPB's own trends tool (which does not provide a way to downloaded aggregated trend data), on the <a href="https://www.consumerfinance.gov/data-research/consumer-complaints/search/">Consumer Complaint Database homepage</a>.</p>
 <p>The code for this page is on <a href="https://github.com/gweissman86/cfpb_data_downloader" target='_blank'>Github</a>.</p>
 </div>
@@ -87,6 +89,9 @@ Set the following options and click submit to view complaint data. Some options 
 
 
 <script>
+// Create reset button
+document.getElementById('reset').href = window.location.pathname;
+
 // set up page dropdowns
 const products = ['', 'Debt collection', 'Money transfer, virtual currency, or money service', 'Credit reporting, credit repair services, or other personal consumer reports',
  'Checking or savings account', 'Credit card or prepaid card', 'Vehicle loan or lease', 'Mortgage', 'Student loan',
@@ -110,9 +115,9 @@ for (dropdown in dropdowns){
 </script>
 
 
-<script type="text/javascript" src="scripts/cfpb_functions.js"></script>
-<script type="text/javascript" src="scripts/cfpb_script.js"></script>
-<script type="text/javascript" src="scripts/cfpb_after_load.js" defer></script>
+<script type="text/javascript" src="scripts/parse_cfpb_json.js"></script>
+<script type="text/javascript" src="scripts/load_cfpb_data.js"></script>
+<script type="text/javascript" src="scripts/disable_dropdowns.js" defer></script>
 
 
 </body>
