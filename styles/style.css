@@ -1,6 +1,5 @@
 body {
-    font-family: sans-serif;
-    background-color: lightgray;
+    font-family: Helvetica, sans-serif;
 }
 
 select {
@@ -31,7 +30,7 @@ div.primary {
     margin-left: auto;
     padding: 15px;
     background-color: white;
-    max-width: 600px;
+    max-width: 800px;
 }
 
 #results {

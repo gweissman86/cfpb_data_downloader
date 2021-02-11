@@ -1,8 +1,5 @@
 // SCRIPT FOR PROCESSING CFPB DATA
 
-// Set reset button
-document.getElementById('reset').href = window.location.pathname;
-
 // Make all forms match whatever the query is, to retain state.
 function replaceForms(value, key){
     const el = document.getElementById(key);
