@@ -1,6 +1,22 @@
 body {
     font-family: Helvetica, sans-serif;
+    background-color: whitesmoke;
+    color: black;
+    transition: 2s;
 }
+
+a:link{color:purple;}
+a:visited{color:blue;}
+a:hover{color:red;}
+a:active{color:orange;}
+
+.dark-mode {
+    background-color: black;
+    color: whitesmoke;
+}
+
+.dark-mode a:link{color:plum;}
+.dark-mode a:visited{color:lightskyblue;}
 
 select {
     max-width: 80%;
@@ -29,7 +45,6 @@ div.primary {
     margin-right: auto;
     margin-left: auto;
     padding: 15px;
-    background-color: white;
     max-width: 800px;
 }
 
