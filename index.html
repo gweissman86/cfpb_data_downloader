@@ -2,7 +2,7 @@
 <html>
 
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta charset ="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 <title>CFPB trend data downloader</title>
 
 <link rel="stylesheet" href="styles/style.css">
@@ -20,12 +20,34 @@ crossorigin="anonymous"></script>
 
 <div id="intro" class="primary">
 <!--jquery Dark Mode Button, needs localStorage to hold class when submitting API requests/reloading page-->
+<script>
+$(document).ready(function(){
+ if (localStorage.getItem('theme') == 'dark'){
+  $("body").addClass("dark-mode");
+  console.log("dark-theme")
+ } else {
+  $("body").removeClass("dark-mode");
+  localStorage.setItem('theme', 'light');
+  console.log("light-theme");
+ }
+});
+
+</script>
+
 
   <button id="darkToggle">Toggle dark mode</button>
 
   <script>
       $("#darkToggle").click(function(){
-        $("body").toggleClass("dark-mode");
+        if (localStorage.getItem('theme') == 'dark'){
+        $("body").removeClass("dark-mode");
+        localStorage.setItem('theme', 'light');
+        console.log("light-theme");
+        } else if (localStorage.getItem('theme') == 'undefined' || localStorage.getItem('theme') == 'light'){
+        $("body").addClass("dark-mode");
+        localStorage.setItem('theme', 'dark');
+        console.log("dark-theme");
+        } 
       });
   </script>
 

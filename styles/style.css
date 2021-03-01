@@ -2,7 +2,7 @@ body {
     font-family: Helvetica, sans-serif;
     background-color: whitesmoke;
     color: black;
-    transition: 2s;
+    /* transition: 2s; */
 }
 
 a:link{color:purple;}
